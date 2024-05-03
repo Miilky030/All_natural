@@ -271,11 +271,11 @@ DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `id_prod` int NOT NULL AUTO_INCREMENT,
   `nombre_prod` varchar(50) NOT NULL,
-  `descripcion` text NOT NULL,
-  `categoria` varchar(35) NOT NULL,
-  `precio` float NOT NULL,
+  `descripcion` text,
+  `categoria` varchar(35) DEFAULT NULL,
+  `precio` float DEFAULT NULL,
   PRIMARY KEY (`id_prod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,6 +284,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,'Acondicionador','Crecimiento e hidratación',NULL,550),(2,'Aceite milagroso','Para crecimiento',NULL,799),(3,'Acondicionador Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',550),(4,'Acondicionador niños','Crecimiento e hidratación','Niños',NULL),(5,'Ampolla anticaída',NULL,'Hombres',199),(6,'Ampolla hidratante','No se retira',NULL,199),(7,'Ampolla C&J','Anticaida y crecimiento','C&J',199),(8,'Crema de peinar Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',450),(9,'Crema de peinar Niños',NULL,'Niños',NULL),(10,'Crema de peinar','Hidratante',NULL,450),(11,'Gel de rizos','Hidrata, aporta suavidad y define los rizos','Pelo Rizo',399),(12,'Gelatina masculina','Hidratante','Hombres',499),(13,'Gel de rizos','Hidratante y nutritivo','Pelo Rizo',399),(14,'Gotero Anticaída','Anticaída y crecimiento','Hidratacion',699),(15,'Gotero','Crecimiento y control de grasa/caspa','Control grasa/caspa',650),(16,'Gotero C&J','Hidratante','C&J',699),(17,'Jalea reparadora','Reparación, crecimiento y anticaída','Crecimiento',699),(18,'Jalea','Crecimiento y nutricion','Hidratación',799),(19,'Jalea C&J','Hidratante','C&J',799),(20,'Jalea Niños',NULL,'Niños',NULL),(21,'Leave-in Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',499),(22,'Leave-in térmico','Hidratante y nutritivo',NULL,499),(23,'Leave-in C&J','Hidratante','C&J',499),(24,'Leave-in Niños',NULL,'Niños',NULL),(25,'Mascarilla','Crecimiento, anticaída y nutrición',NULL,650),(26,'Mascarilla acondicionadora','Reparadora y nutritiva',NULL,650),(27,'Mascarilla pelo graso','Crecimiento y reparación','Control grasa/caspa',650),(28,'Mascarilla C&J','Hidratante','C&J',650),(29,'Mascarilla Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',650),(30,'Mascarilla reparadora','Reparación y nutrición',NULL,650),(31,'Pre-poo','Pelo seco y maltratado','Hidratación',799),(32,'Mascarilla Niños',NULL,'Niños',NULL),(33,'Penetre Milagroso',NULL,NULL,499),(34,'Shampoo anticaspa',NULL,'Control grasa/caspa',550),(35,'Shampoo C&J','Hidratante','C&J',550),(36,'Shampoo crecimiento','Crecimiento y anticaida','Crecimiento',550),(37,'Suero Capilar','Crecimiento y control de caida',NULL,450),(38,'Suero capilar C&J','Hidratante','C&J',450),(39,'Laceador anti-frizz',NULL,NULL,550),(40,'Gota de brillo Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',299),(41,'Gota de brillo',NULL,NULL,299);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,4 +404,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-02  7:17:15
+-- Dump completed on 2024-05-03  7:43:43
