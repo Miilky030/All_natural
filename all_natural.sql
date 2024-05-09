@@ -16,383 +16,180 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `carrito`
+-- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `carrito`;
+DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carrito` (
-  `id_carrito` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int NOT NULL,
-  PRIMARY KEY (`id_carrito`),
-  KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `cart` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `pid` int NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` int NOT NULL,
+  `quantity` int NOT NULL,
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `carrito`
+-- Dumping data for table `cart`
 --
 
-LOCK TABLES `carrito` WRITE;
-/*!40000 ALTER TABLE `carrito` DISABLE KEYS */;
-/*!40000 ALTER TABLE `carrito` ENABLE KEYS */;
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_carrito`
+-- Table structure for table `message`
 --
 
-DROP TABLE IF EXISTS `detalle_carrito`;
+DROP TABLE IF EXISTS `message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_carrito` (
-  `id_carrito` int NOT NULL,
-  `id_prod` int NOT NULL,
-  `cantidad` int NOT NULL,
-  KEY `id_carrito` (`id_carrito`),
-  KEY `id_prod` (`id_prod`),
-  CONSTRAINT `detalle_carrito_ibfk_1` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`),
-  CONSTRAINT `detalle_carrito_ibfk_2` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `message` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `number` varchar(12) NOT NULL,
+  `message` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_carrito`
+-- Dumping data for table `message`
 --
 
-LOCK TABLES `detalle_carrito` WRITE;
-/*!40000 ALTER TABLE `detalle_carrito` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_carrito` ENABLE KEYS */;
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_pedido`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `detalle_pedido`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_pedido` (
-  `id_pedido` int NOT NULL,
-  `id_prod` int NOT NULL,
-  `cantidad` int NOT NULL,
-  `descripcion` text,
-  KEY `id_prod` (`id_prod`),
-  KEY `id_pedido` (`id_pedido`),
-  CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`),
-  CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `orders` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `number` varchar(12) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `method` varchar(50) NOT NULL,
+  `address` varchar(500) NOT NULL,
+  `total_products` varchar(1000) NOT NULL,
+  `total_price` int NOT NULL,
+  `placed_on` varchar(50) NOT NULL,
+  `payment_status` varchar(20) NOT NULL DEFAULT 'pending',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_pedido`
+-- Dumping data for table `orders`
 --
 
-LOCK TABLES `detalle_pedido` WRITE;
-/*!40000 ALTER TABLE `detalle_pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_pedido` ENABLE KEYS */;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_venta`
+-- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `detalle_venta`;
+DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_venta` (
-  `id_venta` int NOT NULL,
-  `id_prod` int NOT NULL,
-  `cantidad` int NOT NULL,
-  `descripcion` text,
-  KEY `id_prod` (`id_prod`),
-  KEY `id_venta` (`id_venta`),
-  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`),
-  CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `details` varchar(500) NOT NULL,
+  `price` int NOT NULL,
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_venta`
+-- Dumping data for table `products`
 --
 
-LOCK TABLES `detalle_venta` WRITE;
-/*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `entrada_inv`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `entrada_inv`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `entrada_inv` (
-  `id_inv` int NOT NULL,
-  `cantidad` int NOT NULL,
-  `fecha` date NOT NULL,
-  KEY `id_inv` (`id_inv`),
-  CONSTRAINT `entrada_inv_ibfk_1` FOREIGN KEY (`id_inv`) REFERENCES `inventario` (`id_inv`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `user_type` varchar(20) NOT NULL DEFAULT 'user',
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `entrada_inv`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `entrada_inv` WRITE;
-/*!40000 ALTER TABLE `entrada_inv` DISABLE KEYS */;
-/*!40000 ALTER TABLE `entrada_inv` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (31,'Amaia Almonte','miily69@gmail.com','fa293fc9c3ada8acc0ddfe3eee90b1bd','user','emo.png'),(32,'Britney Polanco','bri123@gmail.com','e10adc3949ba59abbe56e057f20f883e','user','cupcakke.png'),(33,'Administrador','admin@gmail.com','e00cf25ad42683b3df678c61f42c6bda','admin','zzz.jpg');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `factura`
+-- Table structure for table `wishlist`
 --
 
-DROP TABLE IF EXISTS `factura`;
+DROP TABLE IF EXISTS `wishlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `factura` (
-  `id_factura` int NOT NULL AUTO_INCREMENT,
-  `ncf` char(11) NOT NULL,
-  `id_venta` int NOT NULL,
-  `fecha` date NOT NULL,
-  `monto_subtotal` float NOT NULL,
-  `itbis` int NOT NULL,
-  `monto_total` float NOT NULL,
-  PRIMARY KEY (`id_factura`),
-  KEY `id_venta` (`id_venta`),
-  CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `wishlist` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `pid` int NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` int NOT NULL,
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `factura`
+-- Dumping data for table `wishlist`
 --
 
-LOCK TABLES `factura` WRITE;
-/*!40000 ALTER TABLE `factura` DISABLE KEYS */;
-/*!40000 ALTER TABLE `factura` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `inventario`
---
-
-DROP TABLE IF EXISTS `inventario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `inventario` (
-  `id_inv` int NOT NULL AUTO_INCREMENT,
-  `id_prod` int NOT NULL,
-  `cantidad` int NOT NULL,
-  `estado` enum('A','I') NOT NULL,
-  PRIMARY KEY (`id_inv`),
-  KEY `id_prod` (`id_prod`),
-  CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `inventario`
---
-
-LOCK TABLES `inventario` WRITE;
-/*!40000 ALTER TABLE `inventario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inventario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `mensaje`
---
-
-DROP TABLE IF EXISTS `mensaje`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `mensaje` (
-  `id_mensaje` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int NOT NULL,
-  `nombre` varchar(60) NOT NULL,
-  `telefono` char(13) NOT NULL,
-  `descripcion` text NOT NULL,
-  PRIMARY KEY (`id_mensaje`),
-  KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `mensaje`
---
-
-LOCK TABLES `mensaje` WRITE;
-/*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pedido`
---
-
-DROP TABLE IF EXISTS `pedido`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pedido` (
-  `id_pedido` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int NOT NULL,
-  `fecha` date NOT NULL,
-  `monto_subtotal` float NOT NULL,
-  `monto_total` float NOT NULL,
-  PRIMARY KEY (`id_pedido`),
-  KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pedido`
---
-
-LOCK TABLES `pedido` WRITE;
-/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `producto`
---
-
-DROP TABLE IF EXISTS `producto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `producto` (
-  `id_prod` int NOT NULL AUTO_INCREMENT,
-  `nombre_prod` varchar(50) NOT NULL,
-  `descripcion` text,
-  `categoria` varchar(35) DEFAULT NULL,
-  `precio` float DEFAULT NULL,
-  PRIMARY KEY (`id_prod`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `producto`
---
-
-LOCK TABLES `producto` WRITE;
-/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'Acondicionador','Crecimiento e hidratación',NULL,550),(2,'Aceite milagroso','Para crecimiento',NULL,799),(3,'Acondicionador Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',550),(4,'Acondicionador niños','Crecimiento e hidratación','Niños',NULL),(5,'Ampolla anticaída',NULL,'Hombres',199),(6,'Ampolla hidratante','No se retira',NULL,199),(7,'Ampolla C&J','Anticaida y crecimiento','C&J',199),(8,'Crema de peinar Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',450),(9,'Crema de peinar Niños',NULL,'Niños',NULL),(10,'Crema de peinar','Hidratante',NULL,450),(11,'Gel de rizos','Hidrata, aporta suavidad y define los rizos','Pelo Rizo',399),(12,'Gelatina masculina','Hidratante','Hombres',499),(13,'Gel de rizos','Hidratante y nutritivo','Pelo Rizo',399),(14,'Gotero Anticaída','Anticaída y crecimiento','Hidratacion',699),(15,'Gotero','Crecimiento y control de grasa/caspa','Control grasa/caspa',650),(16,'Gotero C&J','Hidratante','C&J',699),(17,'Jalea reparadora','Reparación, crecimiento y anticaída','Crecimiento',699),(18,'Jalea','Crecimiento y nutricion','Hidratación',799),(19,'Jalea C&J','Hidratante','C&J',799),(20,'Jalea Niños',NULL,'Niños',NULL),(21,'Leave-in Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',499),(22,'Leave-in térmico','Hidratante y nutritivo',NULL,499),(23,'Leave-in C&J','Hidratante','C&J',499),(24,'Leave-in Niños',NULL,'Niños',NULL),(25,'Mascarilla','Crecimiento, anticaída y nutrición',NULL,650),(26,'Mascarilla acondicionadora','Reparadora y nutritiva',NULL,650),(27,'Mascarilla pelo graso','Crecimiento y reparación','Control grasa/caspa',650),(28,'Mascarilla C&J','Hidratante','C&J',650),(29,'Mascarilla Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',650),(30,'Mascarilla reparadora','Reparación y nutrición',NULL,650),(31,'Pre-poo','Pelo seco y maltratado','Hidratación',799),(32,'Mascarilla Niños',NULL,'Niños',NULL),(33,'Penetre Milagroso',NULL,NULL,499),(34,'Shampoo anticaspa',NULL,'Control grasa/caspa',550),(35,'Shampoo C&J','Hidratante','C&J',550),(36,'Shampoo crecimiento','Crecimiento y anticaida','Crecimiento',550),(37,'Suero Capilar','Crecimiento y control de caida',NULL,450),(38,'Suero capilar C&J','Hidratante','C&J',450),(39,'Laceador anti-frizz',NULL,NULL,550),(40,'Gota de brillo Pelo Rizo','Hidratante y nutritivo','Pelo Rizo',299),(41,'Gota de brillo',NULL,NULL,299);
-/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `salida_inv`
---
-
-DROP TABLE IF EXISTS `salida_inv`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `salida_inv` (
-  `id_inv` int NOT NULL,
-  `cantidad` int NOT NULL,
-  `fecha` date NOT NULL,
-  KEY `id_inv` (`id_inv`),
-  CONSTRAINT `salida_inv_ibfk_1` FOREIGN KEY (`id_inv`) REFERENCES `inventario` (`id_inv`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `salida_inv`
---
-
-LOCK TABLES `salida_inv` WRITE;
-/*!40000 ALTER TABLE `salida_inv` DISABLE KEYS */;
-/*!40000 ALTER TABLE `salida_inv` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `seguimiento_pedido`
---
-
-DROP TABLE IF EXISTS `seguimiento_pedido`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `seguimiento_pedido` (
-  `id_pedido` int NOT NULL,
-  `estado` varchar(20) NOT NULL,
-  `fecha` date NOT NULL,
-  KEY `id_pedido` (`id_pedido`),
-  CONSTRAINT `seguimiento_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `seguimiento_pedido`
---
-
-LOCK TABLES `seguimiento_pedido` WRITE;
-/*!40000 ALTER TABLE `seguimiento_pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `seguimiento_pedido` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuario`
---
-
-DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
-  `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) NOT NULL,
-  `contrasena` varchar(60) NOT NULL,
-  `fecha_registro` date NOT NULL,
-  `tipo_usuario` enum('Administrador','Usuario') NOT NULL,
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuario`
---
-
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin1@gmail.com','admin01','2024-05-02','Administrador'),(2,'user21','12345678','2024-05-02','Usuario');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `venta`
---
-
-DROP TABLE IF EXISTS `venta`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `venta` (
-  `id_venta` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int NOT NULL,
-  `fecha` date NOT NULL,
-  `tipo_pago` varchar(20) NOT NULL,
-  `monto_subtotal` float NOT NULL,
-  `itbis` int NOT NULL,
-  `monto_total` float NOT NULL,
-  PRIMARY KEY (`id_venta`),
-  KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `venta`
---
-
-LOCK TABLES `venta` WRITE;
-/*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-/*!40000 ALTER TABLE `venta` ENABLE KEYS */;
+LOCK TABLES `wishlist` WRITE;
+/*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -404,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-03  7:43:43
+-- Dump completed on 2024-05-09  7:31:53
