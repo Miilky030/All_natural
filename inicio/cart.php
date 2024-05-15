@@ -55,7 +55,7 @@ if(isset($_POST['update_qty'])){
 
 <section class="shopping-cart">
 
-   <h1 class="title">products added</h1>
+   <h1 class="title">productos añadidos</h1>
 
    <div class="box-container">
 
@@ -89,8 +89,8 @@ if(isset($_POST['update_qty'])){
    </div>
 
    <div class="cart-total">
-      <p>grand total : <span>$<?= $grand_total; ?>/-</span></p>
-      <a href="shop.php" class="option-btn">continue shopping</a>
+      <p> total : <span>$<?= $grand_total; ?>/-</span></p>
+      <a href="shop.php" class="option-btn">continue comprando</a>
       <a href="cart.php?delete_all" class="delete-btn <?= ($grand_total > 1)?'':'disabled'; ?>">delete all</a>
       <a href="checkout.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">proceed to checkout</a>
    </div>
